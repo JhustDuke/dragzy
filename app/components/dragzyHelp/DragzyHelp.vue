@@ -2,7 +2,7 @@
 	<button
 		type="button"
 		class="info btn red mx-2 white-text"
-		@click="isModalOpen = true"
+		@click="openHelp('button')"
 		@mouseenter="
 			showAndHideToolTip(hints.helpInfo, {
 				left: 0,
@@ -52,22 +52,27 @@
 			<Shortcuts v-else-if="activeTopic === 'shortcuts'" />
 			<HelpImport v-else-if="activeTopic === 'import'" />
 			<HelpHistory v-else-if="activeTopic === 'history'" />
+			<HelpResponsive v-else-if="activeTopic === 'responsive'" />
 			<HelpExport v-else-if="activeTopic === 'export'" />
+			<HelpAskAi v-else-if="activeTopic === 'ask-ai'" />
 			<HelpTips v-else-if="activeTopic === 'tips'" />
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
-	import { showAndHideToolTip, hints } from "#imports";
+	import { ref, onMounted } from "vue";
+	import { useCookie, showAndHideToolTip, hints } from "#imports";
+	import { trackAnalytics } from "~/utils";
 
 	import HelpGettingStarted from "./GettingStarted.vue";
 	import HelpElements from "./HelpElements.vue";
 	import HelpEditing from "./HelpEditing.vue";
 	import HelpImport from "./HelpImports.vue";
 	import HelpHistory from "./HelpHistory.vue";
+	import HelpResponsive from "./HelpResponsive.vue";
 	import HelpExport from "./HelpExport.vue";
+	import HelpAskAi from "./HelpAskAi.vue";
 	import HelpTips from "./HelpTips.vue";
 	import Shortcuts from "./Shortcuts.vue";
 
@@ -78,11 +83,26 @@
 		| "shortcuts"
 		| "import"
 		| "history"
+		| "responsive"
 		| "export"
+		| "ask-ai"
 		| "tips";
 
 	const isModalOpen = ref(false);
 	const activeTopic = ref<HelpTopicId>("getting-started");
+
+	// remembers the visitor has seen the help e.g. "true"
+	const isAcquaintedUserCookie = useCookie<string | null>("isAcquaintedUser", {
+		maxAge: 60 * 60 * 24 * 365,
+		sameSite: "lax",
+	});
+
+	onMounted(function () {
+		// first visit, no cookie yet, so show the help first
+		if (!isAcquaintedUserCookie.value) {
+			openHelp("first-visit");
+		}
+	});
 
 	const topics: Array<{
 		id: HelpTopicId;
@@ -91,15 +111,23 @@
 		{ id: "getting-started", label: "Getting Started" },
 		{ id: "elements", label: "Elements & Presets" },
 		{ id: "editing", label: "Editing" },
-		{ id: "shortcuts", label: "shortcuts" },
+		{ id: "shortcuts", label: "Shortcuts" },
 		{ id: "import", label: "Import" },
 		{ id: "history", label: "Undo / Redo" },
+		{ id: "responsive", label: "Responsive" },
 		{ id: "export", label: "Export" },
+		{ id: "ask-ai", label: "Ask AI" },
 		{ id: "tips", label: "Tips" },
 	];
 
+	function openHelp(openedBy: "button" | "first-visit"): void {
+		isModalOpen.value = true;
+		trackAnalytics("help-opened", { openedBy: openedBy });
+	}
+
 	function closeHelp(): void {
 		isModalOpen.value = false;
+		isAcquaintedUserCookie.value = "true";
 	}
 </script>
 

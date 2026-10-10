@@ -7,7 +7,10 @@
 		</p>
 
 		<ul>
-			<li>Desktop is useful for wider layouts.</li>
+			<li
+				>Desktop is useful for wider layouts and its the screen you develop with
+				by default</li
+			>
 			<li>Tablet helps check medium-sized screens.</li>
 			<li>Mobile helps check narrow screens.</li>
 			<li

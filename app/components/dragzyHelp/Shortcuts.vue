@@ -1,11 +1,8 @@
-```vue
 <template>
 	<div>
 		<h6>Shortcuts</h6>
 
-		<p>
-			Use these keyboard shortcuts to work faster in Dragzy:
-		</p>
+		<p> Use these keyboard shortcuts to work faster in Dragzy: </p>
 
 		<table class="table table-sm table-bordered">
 			<thead>
@@ -17,8 +14,18 @@
 
 			<tbody>
 				<tr>
+					<td><kbd>C</kbd></td>
+					<td>Create an element</td>
+				</tr>
+
+				<tr>
 					<td><kbd>P</kbd></td>
 					<td>Presets</td>
+				</tr>
+
+				<tr>
+					<td><kbd>E</kbd></td>
+					<td>Export the active element or container</td>
 				</tr>
 
 				<tr>
@@ -47,19 +54,18 @@
 			<strong>Active element:</strong>
 
 			<p class="mb-0 mt-1">
-				Some shortcuts operate on the currently selected element.
-				Make sure an element is active before using these shortcuts
-				so they can work as expected.
+				Some shortcuts operate on the currently selected element. Make sure an
+				element is active before using these shortcuts so they can work as
+				expected.
 			</p>
 		</div>
 
 		<h6 class="mt-4">Imported Components</h6>
 
 		<p class="mb-0">
-			To see your imported components, make sure the current action is
-			set to <strong>Import</strong>. Your imported components will be
-			displayed when the Import action is active.
+			To see your imported components, make sure the current action is set to
+			<strong>Import</strong>. Your imported components will be displayed when
+			the Import action is active.
 		</p>
 	</div>
 </template>
-```

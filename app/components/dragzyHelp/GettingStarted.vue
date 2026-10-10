@@ -3,8 +3,8 @@
 		<h6>Getting Started</h6>
 
 		<p>
-			Dragzy lets you visually build HTML layouts without constantly
-			switching between your editor and browser.
+			Dragzy lets you visually build HTML layouts without constantly switching
+			between your editor and browser. It works best on a desktop screen.
 		</p>
 
 		<ol>
@@ -16,8 +16,10 @@
 
 		<div class="grey lighten-3 rounded p-3">
 			<strong>Important:</strong>
-			Clicking a preset only selects it. The element is placed on the
-			canvas after you double-click the canvas area.
+			Clicking a preset only selects it. The element is placed on the canvas
+			after you double-click the canvas area. New elements go inside the element
+			you double-clicked, or inside the main container when you double-click
+			empty space.
 		</div>
 	</div>
 </template>
