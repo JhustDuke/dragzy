@@ -26,17 +26,27 @@
 	import { computed } from "vue";
 	import { useAppActionStore } from "~/store";
 	import { blockPresetFactory } from "~/presets/bs5";
+	import { blockPresetFactory as twBlockPresetFactory } from "~/presets/tw";
 	import type { BlockPresetVariant } from "~/presets/types";
 	import BlockVariants from "./BlockVariants.vue";
 
 	const appActionStore = useAppActionStore();
 
+	// picks the presets for the current page e.g. tw presets on the tw page
+	const activeBlockPresetFactory = computed(function () {
+		if (appActionStore.framework === "tw") {
+			return twBlockPresetFactory;
+		}
+
+		return blockPresetFactory;
+	});
+
 	const categoryNames = computed(function (): string[] {
-		return blockPresetFactory.blockElemsData().categoryNames;
+		return activeBlockPresetFactory.value.blockElemsData().categoryNames;
 	});
 
 	const activeVariants = computed(function (): BlockPresetVariant[] {
-		return blockPresetFactory.getVariants(
+		return activeBlockPresetFactory.value.getVariants(
 			appActionStore.getActiveBlock.category ?? ""
 		);
 	});
@@ -53,3 +63,5 @@
 		appActionStore.setActiveBlockVariant(variant.preset);
 	}
 </script>
+
+<style scoped></style>

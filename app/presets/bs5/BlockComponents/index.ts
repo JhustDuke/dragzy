@@ -1,2 +1,2 @@
-export * from "./blockPresetFactory";
+export * from "./bs5BlockFactory";
 export * from "./cardsPresets";

@@ -1,2 +1,2 @@
 export * from "./singleElems/singleElemFactory";
-export * from "./BlockComponents/blockPresetFactory";
+export * from "./BlockComponents/bs5BlockFactory";

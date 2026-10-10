@@ -1,5 +1,5 @@
 import { allElems, type AllElemType } from "../../common";
-import { defaultClasses } from "./elemDefaultClasses";
+import { defaultClasses } from "./bs5DefaultClasses";
 import { bootstrapElemVariants } from "./singleElemVariants";
 import type { Preset } from "../../types";
 

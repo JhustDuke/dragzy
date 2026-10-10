@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { AppAction, CanvasElem } from "~/types";
 import { blockPresetFactory } from "~/presets/bs5";
+import { blockPresetFactory as twBlockPresetFactory } from "~/presets/tw";
 
 export const useAppActionStore = defineStore("appAction", {
 	state: function () {
@@ -9,6 +10,9 @@ export const useAppActionStore = defineStore("appAction", {
 		return {
 			currentAction: "create" as AppAction,
 			selectedElemType: "div" as keyof HTMLElementTagNameMap,
+
+			//which css framework this page builds with e.g. "bs5" or "tw"
+			framework: "bs5" as "bs5" | "tw",
 
 			// in state():
 			selectedPresetClasses: [] as string[],
@@ -74,6 +78,22 @@ export const useAppActionStore = defineStore("appAction", {
 			this.currentAction = action;
 		},
 
+		//called once by each framework page on load e.g. setFramework("tw")
+		setFramework: function (framework: "bs5" | "tw"): void {
+			this.framework = framework;
+
+			//stage the new framework's default block, same as the initial state
+			let activeFactory = blockPresetFactory;
+
+			if (framework === "tw") {
+				activeFactory = twBlockPresetFactory;
+			}
+
+			const blockData = activeFactory.blockElemsData();
+			this.activeBlock.category = blockData.defaultCategory;
+			this.activeBlock.variant = blockData.defaultVariant;
+		},
+
 		setSelectedElemType: function (
 			elemType: keyof HTMLElementTagNameMap
 		): void {
@@ -94,9 +114,16 @@ export const useAppActionStore = defineStore("appAction", {
 		//that category's first variant automatically - category and
 		//variant always update together, never left out of sync
 		setActiveBlockCategory: function (categoryName: string): void {
+			//use the tw factory on the tw page, bs5 otherwise
+			let activeFactory = blockPresetFactory;
+
+			if (this.framework === "tw") {
+				activeFactory = twBlockPresetFactory;
+			}
+
 			this.activeBlock.category = categoryName;
 			this.activeBlock.variant =
-				blockPresetFactory.getVariants(categoryName)[0]?.preset ?? null;
+				activeFactory.getVariants(categoryName)[0]?.preset ?? null;
 		},
 
 		//picking a specific variant within the current category - category

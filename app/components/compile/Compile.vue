@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
+	import { ref, computed } from "vue";
 
 	import { vueCompiler, reactCompiler, htmlCompiler } from "../../compiler";
 	import EntireCanvasExport from "./EntireCanvasExp.vue";
@@ -63,7 +63,12 @@
 	import type { CanvasElem } from "~/types";
 	import SingleBlockExport from "./SingleBlockExport.vue";
 
-	const canvasFramework = ref<"tw" | "bs5">("bs5");
+	const appActionStore = useAppActionStore();
+
+	// framework of the current page e.g. "tw" on the tw page
+	const canvasFramework = computed(function () {
+		return appActionStore.framework;
+	});
 
 	const canvasElemsStore = useCanvasElemsStore();
 	const imageLibraryStore = useImageLibraryStore();
