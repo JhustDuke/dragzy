@@ -19,9 +19,12 @@ const createAppRoot = function (): CanvasElem {
 		elemType: "div",
 		children: [],
 		customStyles: {
+			width: "100%",
+			padding: "0.5rem",
 			minHeight: "5000px",
+			border: "10px dashed #ff9800",
 		},
-		cssClasses: ["w-100", "p-1"],
+		cssClasses: [],
 		excludeRootFromExport: false,
 	};
 };

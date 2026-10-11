@@ -5,7 +5,6 @@
 			:key="elem.id"
 			:id="elem.id"
 			:newElemInfo="elem" />
-		<undoRedoToast />
 	</div>
 
 	<template v-if="canvasElemsStore.isDragging">
@@ -27,7 +26,7 @@
 	import { onMounted, onUnmounted, ref } from "vue";
 	import { useCanvasElemsStore } from "../../store";
 	import CanvasElement from "./NewElem.vue";
-	import undoRedoToast from "./undoRedoToast.vue";
+
 	import { isTyping } from "../../utils";
 
 	const canvasElemsStore = useCanvasElemsStore();

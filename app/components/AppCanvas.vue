@@ -12,7 +12,7 @@
 		<section class="flex-grow-1 mt-3">
 			<!-- Desktop: unchanged, still the real interactive canvas -->
 			<div
-				style="min-height: 5000px; max-width: 1400px; margin: 0 auto"
+				style="max-width: 1400px; margin: 0 auto"
 				v-if="viewportStore.activeViewport === 'desktop'"
 				class=""
 				dragzy-root
@@ -42,6 +42,7 @@
 			Placeholder footer text — Dragzy
 		</footer>
 
+		<undoRedoToast />
 		<AskAiModal
 			:framework="appActionStore.framework"
 			:activeElement="canvasElemsStore.getActiveElem!" />
@@ -59,6 +60,7 @@
 	import ToolBar from "~/components/toolbar/ToolBar.vue";
 	import ToggleView from "~/components/toolbar/viewportToggle.vue";
 	import CanvasArea from "~/components/canvasArea/CanvasArea.vue";
+	import undoRedoToast from "~/components/canvasArea/undoRedoToast.vue";
 	import SmallScreenNotice from "~/components/canvasArea/SmallScreenNotice.vue";
 	import RestoreOrNewPrompt from "~/components/indexdb/RestorePrompt.vue";
 	import { usePreviewHtml } from "~/composables";
