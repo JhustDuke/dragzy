@@ -11,7 +11,7 @@
 	<template v-if="canvasElemsStore.isDragging">
 		<div
 			class="position-fixed p-2 grey border border-3"
-			style="border-style: dotted !important"
+			style="border-style: dotted !important; pointer-events: none"
 			:style="{
 				top: dragY + 'px',
 				left: dragX + 'px',
@@ -72,7 +72,9 @@
 	const dragY = ref(0);
 
 	const trackDragPosition = function (ev: MouseEvent) {
-		if (!canvasElemsStore.currentlyDragged) return;
+		if (!canvasElemsStore.currentlyDragged) {
+			return;
+		}
 
 		dragX.value = ev.clientX;
 		dragY.value = ev.clientY;
@@ -91,6 +93,10 @@
 
 		if (canvasElemsStore.isDragging && draggedNode && draggedNode.id) {
 			let didEdit = false;
+
+			if (hoveredNode) {
+				console.log("hoverend node");
+			}
 
 			if (hoveredNode && hoveredNode.id) {
 				didEdit = canvasElemsStore.appendToNewParent(
