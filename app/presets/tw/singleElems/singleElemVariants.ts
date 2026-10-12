@@ -4,7 +4,7 @@ export const tailwindElemVariants = buildSingleElemPresets({
 	div: [
 		{ label: "Blank", classes: ["p-1", "my-2"] },
 		{
-			label: "Mobile First",
+			label: "Mobile-First",
 			classes: ["flex", "flex-col", "md:flex-row", "items-start"],
 		},
 		{ label: "Container", classes: ["container", "mx-auto", "p-3"] },

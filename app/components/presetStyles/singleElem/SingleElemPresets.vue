@@ -25,7 +25,8 @@
 <script setup lang="ts">
 	import { computed } from "vue";
 	import { useAppActionStore } from "~/store";
-	import { SingleElemDataFactory } from "~/presets/bs5";
+	import { bs5singleElemDataFactory } from "~/presets/bs5";
+	import { twSingleElemDataFactory } from "~/presets/tw";
 	import { allElems, type AllElemType } from "~/presets/common";
 	import type { Preset } from "~/presets";
 	import ElemTypes from "./ElemTypes.vue";
@@ -35,6 +36,15 @@
 	//which elem is currently selected
 	//so it can be created where necessary
 	const appActionStore = useAppActionStore();
+
+	// picks the presets for the current page e.g. tw presets on the tw page
+	const activeElemDataFactory = computed(function () {
+		if (appActionStore.framework === "tw") {
+			return twSingleElemDataFactory;
+		}
+
+		return bs5singleElemDataFactory;
+	});
 
 	//every elem type that exists, sourced from allElems - the single place
 	//that defines which elem types exist at all
@@ -47,7 +57,9 @@
 	//variants for whichever elem type is currently selected
 	//e.g. selectedElemType = "div" -> [Centered, Container, Card, Aside]
 	const variants = computed(function () {
-		return SingleElemDataFactory.getElemData(selectedElemType.value).variants;
+		return activeElemDataFactory.value.getElemData(
+			selectedElemType.value
+		).variants;
 	});
 
 	function handleElemTypeSelect(elemType: AllElemType): void {

@@ -40,8 +40,9 @@
 
 <script setup lang="ts">
 	import { computed } from "vue";
-	import { useCanvasElemsStore } from "~/store";
-	import { SingleElemDataFactory } from "~/presets/bs5";
+	import { useAppActionStore, useCanvasElemsStore } from "~/store";
+	import { bs5singleElemDataFactory } from "~/presets/bs5";
+	import { twSingleElemDataFactory } from "~/presets/tw";
 
 	const canvasElemsStore = useCanvasElemsStore();
 
@@ -81,10 +82,17 @@
 	// getDefaultAttrs returns an object like { href: "" }, not an array,
 	// so Object.keys() pulls out just the names we need.
 	const visibleAttrs = computed(function () {
+		const appActionStore = useAppActionStore();
 		if (!selectedElem.value) return [];
 
 		const elemType = selectedElem.value.elemType;
-		const elemData = SingleElemDataFactory.getElemData(elemType as any);
+		let elemData;
+		if (appActionStore.framework === "bs5") {
+			elemData = bs5singleElemDataFactory.getElemData(elemType as any);
+		} else {
+			elemData = twSingleElemDataFactory.getElemData(elemType as any);
+		}
+
 		const declaredAttrNames = Object.keys(elemData.defaults.attributes ?? {});
 		const excluded = EXCLUDED_ATTRS_BY_ELEM[elemType] ?? [];
 

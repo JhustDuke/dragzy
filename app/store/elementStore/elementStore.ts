@@ -8,7 +8,8 @@ import {
 	APP_ROOT_ID,
 	findPositionedElemsIds,
 } from "./utils";
-import { SingleElemDataFactory } from "~/presets/bs5";
+import { bs5singleElemDataFactory } from "~/presets/bs5";
+import { twSingleElemDataFactory } from "~/presets/tw";
 import { reorderElem } from "./reorderStoreElem";
 import { dragMethod } from "./dragMethods";
 import { updateElem } from "./updateStoreElem";
@@ -64,7 +65,13 @@ export const useCanvasElemsStore = defineStore("canvasElems", {
 	actions: {
 		addElem: function (type: keyof HTMLElementTagNameMap) {
 			const appActionStore = useAppActionStore();
-			const elemData = SingleElemDataFactory.getElemData(type as any);
+			let elemData;
+
+			if (appActionStore.framework === "bs5") {
+				elemData = bs5singleElemDataFactory.getElemData(type as any);
+			} else {
+				elemData = twSingleElemDataFactory.getElemData(type as any);
+			}
 
 			//createDefault (in canvasElemFactory.ts) now owns all the
 			//width/height/attribute-parsing logic internally - this action

@@ -7,7 +7,7 @@ import type { Preset } from "../../types";
  * this factory is the SINGLE SOURCE OF OF TRUTH FOR EVERY SINGLE ELEM CREATED FOR EACH FRAMEWORK
  * IT COMES WITH ABILITY TO ACCESS ATTRIBUTES,CLASSES AND OTHER THINGS PER ELEM
  */
-export const SingleElemDataFactory = (function () {
+export const bs5singleElemDataFactory = (function () {
 	//builds a fresh, populated attrs object for one elem type.
 	//attrNames tells us WHICH keys this elem type is allowed to have
 	//(e.g. img is allowed src/alt/width/height, div is allowed none).
