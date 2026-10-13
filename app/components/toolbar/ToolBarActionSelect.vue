@@ -39,7 +39,7 @@
 		"resize",
 		"presets",
 		"imports",
-		"export",
+		"single-export",
 	];
 
 	function handleKeyDown(event: KeyboardEvent): void {
@@ -73,7 +73,7 @@
 			return;
 		}
 		if (event.key === "e") {
-			selectedAction.value = "export";
+			selectedAction.value = "single-export";
 			return;
 		}
 	}

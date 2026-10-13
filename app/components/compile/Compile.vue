@@ -1,20 +1,30 @@
 <template>
 	<div>
+		<RequestFilename
+			v-if="
+				exportMode === null &&
+				(shouldRequestFilename ||
+					appActionStore.currentAction === 'single-export')
+			"
+			:selected-framework="selectedExportFormat"
+			@closeModal="shouldRequestFilename = false"
+			@confirm="onFilenameReceived" />
+
 		<!-- shown when a single block is picked for export -->
 		<SingleBlockExport
-			v-if="useAppActionStore().currentAction === 'export'"
+			v-if="exportMode === 'single'"
 			:is-exporting="isSingleExportBtnClicked"
-			@close="useAppActionStore().setActiveAction('create')"
+			@close="exportMode = null"
 			:exportFormats="exportFormats"
 			@on-export-data="handleSingleBlockExport" />
 
-		<!-- shown after Go is clicked, exports the whole canvas -->
+		<!-- shown after Go is clicked and filename is recieved, exports the whole canvas -->
 		<EntireCanvasExport
-			v-if="shouldShowPreExportMsg"
+			v-if="exportMode === 'entire'"
 			:framework="canvasFramework"
 			:export-format="selectedExportFormat"
 			@start-entire-compile="handleEntireCanvasExport"
-			@close="shouldShowPreExportMsg = false" />
+			@close="exportMode = null" />
 
 		<!-- Framework picker + Go button, triggers compileForSelectedFramework -->
 		<div class="d-flex gap-1 align-items-center">
@@ -41,7 +51,7 @@
 			<button
 				type="button"
 				class="btn btn-success white-text"
-				@click="shouldShowPreExportMsg = true">
+				@click="shouldRequestFilename = true">
 				Go
 			</button>
 		</div>
@@ -62,18 +72,34 @@
 	import { showAndHideToolTip, hints } from "#imports";
 	import type { CanvasElem } from "~/types";
 	import SingleBlockExport from "./SingleBlockExport.vue";
+	import RequestFilename from "./RequestFilename.vue";
 
 	const appActionStore = useAppActionStore();
+	const canvasElemsStore = useCanvasElemsStore();
+	const imageLibraryStore = useImageLibraryStore();
+
+	const exportFormats = ["HTML", "Vue", "React"] as const;
 
 	// framework of the current page e.g. "tw" on the tw page
 	const canvasFramework = computed(function () {
 		return appActionStore.framework;
 	});
 
-	const canvasElemsStore = useCanvasElemsStore();
-	const imageLibraryStore = useImageLibraryStore();
+	const exportMode = ref<"single" | "entire" | null>(null);
 
-	const exportFormats = ["HTML", "Vue", "React"] as const;
+	const shouldRequestFilename = ref(false);
+	const receivedFilename = ref<string | null>(null);
+
+	const onFilenameReceived = function (filename: string) {
+		receivedFilename.value = filename;
+		shouldRequestFilename.value = false;
+
+		if (appActionStore.currentAction === "single-export") {
+			exportMode.value = "single";
+		} else {
+			exportMode.value = "entire";
+		}
+	};
 
 	type allowedExports = (typeof exportFormats)[number];
 
@@ -107,11 +133,12 @@
 			});
 
 			if (output) {
-				const { exportData, filename } = output;
+				const { exportData, fallbackFilename } = output;
 
-				initDownload(exportData, filename);
+				initDownload(exportData, receivedFilename.value || fallbackFilename!);
 				// close only on success so the user can retry on failure
-				useAppActionStore().setActiveAction("create");
+				exportMode.value = null;
+				appActionStore.setActiveAction("create");
 			}
 		} catch (error: any) {
 			console.error("Single block export failed:", error);
@@ -119,9 +146,6 @@
 			isSingleExportBtnClicked.value = false;
 		}
 	}
-
-	// true while the entire-canvas export modal is open
-	const shouldShowPreExportMsg = ref(false);
 
 	function handleEntireCanvasExport(data: {
 		rootElem: CanvasElem;
@@ -141,9 +165,12 @@
 			});
 
 			if (output) {
-				initDownload(output.exportData, output.filename);
+				initDownload(
+					output.exportData,
+					receivedFilename.value || output.fallbackFilename
+				);
 				// close only on success so the user can retry on failure
-				shouldShowPreExportMsg.value = false;
+				exportMode.value = null;
 			}
 		} catch (error: any) {
 			console.error("an error occured", error);
@@ -170,14 +197,14 @@
 				[elem],
 				imageLibraryStore.getImages
 			);
-			return { exportData, filename: "d2x.vue" };
+			return { exportData, fallbackFilename: "dragzy.vue" };
 		}
 		if (outputType === "React") {
 			const exportData = reactCompiler().createReactFile(
 				[elem],
 				imageLibraryStore.getImages
 			);
-			return { exportData, filename: "d2x.jsx" };
+			return { exportData, fallbackFilename: "dragzy.jsx" };
 		}
 		if (outputType === "HTML") {
 			const exportData = htmlCompiler({
@@ -187,7 +214,7 @@
 				// fallback, both callers already pass pageType
 				pageType: pageType ?? "fragment",
 			});
-			return { exportData, filename: "d2x.html" };
+			return { exportData, fallbackFilename: "dragzy.html" };
 		} else {
 			throw new Error(`unknown export format supplied`);
 		}

@@ -176,7 +176,7 @@
 				return currentAppAction.value === "presets";
 
 			case "e":
-				return currentAppAction.value === "export";
+				return currentAppAction.value === "single-export";
 
 			case "r":
 				return currentAppAction.value === "resize";
@@ -204,7 +204,7 @@
 				break;
 
 			case "e":
-				appActionStore.setActiveAction("export");
+				appActionStore.setActiveAction("single-export");
 				break;
 
 			case "r":
