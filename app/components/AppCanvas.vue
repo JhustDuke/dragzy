@@ -6,7 +6,7 @@
 		<nav
 			class="flex-shrink-0 mb-5 pink"
 			style="position: sticky; top: 0; z-index: 1000">
-			<ToolBar class="d-none d-md-block d-sm-block" />
+			<ToolBar />
 		</nav>
 
 		<section class="flex-grow-1 mt-3">
