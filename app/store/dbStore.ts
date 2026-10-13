@@ -1,12 +1,13 @@
 import { defineStore } from "pinia";
 import { db } from "../indexedDb/db";
-import { useCanvasElemsStore } from "~/store";
+import { useCanvasElemsStore, useAppActionStore } from "~/store";
 import type { CanvasElem } from "~/types";
 
 export interface SavedCanvasMeta {
 	id: string;
 	name: string;
 	updatedAt: number;
+	framework: string;
 }
 
 export const useCanvasPersistenceStore = defineStore("canvasPersistence", {
@@ -105,6 +106,7 @@ export const useCanvasPersistenceStore = defineStore("canvasPersistence", {
 				}
 
 				const canvasElemsStore = useCanvasElemsStore();
+				const appActionStore = useAppActionStore();
 
 				const id = this.currentCanvasId ?? generateSaveId();
 				const updatedAt = Date.now();
@@ -113,6 +115,7 @@ export const useCanvasPersistenceStore = defineStore("canvasPersistence", {
 					id,
 					updatedAt,
 					name: this.canvasName,
+					framework: appActionStore.framework,
 					elems: JSON.parse(
 						JSON.stringify(canvasElemsStore.elems)
 					) as CanvasElem[],
@@ -216,14 +219,16 @@ const saveDataToDb = async function ({
 	id,
 	updatedAt,
 	elems,
+	framework,
 }: {
 	id: string;
 	name: string;
+	framework: string;
 	elems: CanvasElem[];
 	updatedAt: number;
 }): Promise<void> {
 	try {
-		await db.canvases.put({ id, name, elems, updatedAt });
+		await db.canvases.put({ id, name, elems, updatedAt, framework });
 	} catch (error: any) {
 		throw new Error(error.message || "failed to save canvas to database");
 	}
@@ -239,7 +244,12 @@ const getDataFromDb = async function (): Promise<SavedCanvasMeta[]> {
 
 		return rows
 			.map(function (row) {
-				return { id: row.id, name: row.name, updatedAt: row.updatedAt };
+				return {
+					id: row.id,
+					name: row.name,
+					updatedAt: row.updatedAt,
+					framework: row.framework,
+				};
 			})
 			.sort(function (a, b) {
 				return b.updatedAt - a.updatedAt;

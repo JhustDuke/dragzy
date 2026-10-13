@@ -6,6 +6,7 @@ export interface SavedCanvas {
 	name: string;
 	elems: CanvasElem[];
 	updatedAt: number;
+	framework: string;
 }
 
 class DragsyDatabase extends Dexie {

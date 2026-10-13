@@ -16,6 +16,10 @@
 						<small class="text-muted">
 							{{ formatDate(canvas.updatedAt) }}
 						</small>
+						<small class="text-muted">
+							Framework
+							{{ canvas.framework || "N/A" }}
+						</small>
 					</div>
 
 					<div class="d-flex gap-2">
