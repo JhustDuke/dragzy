@@ -1,6 +1,6 @@
 # Dragszy 
 
-Dragsy is a WYSIWYG UI builder that lets you design visually and compile directly to real Vue or React components. Start with customizable Bootstrap 5 or Tailwind CSS presets, or build from scratch — everything is fully customizable either way. No browser-editor hopping. AI integration coming in V2.
+Dragsy is a WYSIWYG UI builder that lets you design visually and compile directly to real Vue or React components. Start with customizable Bootstrap 5 or Tailwind CSS presets, or build from scratch — everything is fully customizable either way. No browser-editor hopping with AI integration available. interactivity coming in V2.
 
 ## How it works
 
@@ -69,4 +69,5 @@ npm run preview
 
 - Expand preset library
 - Layout/logic compilation beyond markup + styling
-- AI integration (V2)
+- AI integration 
+- interactivity coming in v2
