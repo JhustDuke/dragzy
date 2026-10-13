@@ -17,6 +17,17 @@
 				class=""
 				dragzy-root
 				@dblclick="handleCanvasDblClick">
+				<!-- shown until the page and its CDN files finish loading -->
+				<div
+					v-if="!isCanvasReady"
+					class="d-flex flex-column align-items-center justify-content-center py-5"
+					@dblclick.stop>
+					<div
+						class="spinner-border text-success"
+						role="status"></div>
+					<p class="mt-3 mb-0">Loading your canvas, please wait...</p>
+				</div>
+
 				<CanvasArea />
 			</div>
 
@@ -56,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-	import { onMounted, watch, computed } from "vue";
+	import { ref, onMounted, onBeforeUnmount, watch, computed } from "vue";
 	import ToolBar from "~/components/toolbar/ToolBar.vue";
 	import ToggleView from "~/components/toolbar/viewportToggle.vue";
 	import CanvasArea from "~/components/canvasArea/CanvasArea.vue";
@@ -78,8 +89,29 @@
 	//this composable is used as src doc for the preview windown
 	const { previewHtml } = usePreviewHtml();
 
+	// true once the page and its CDN files have finished loading
+	const isCanvasReady = ref(false);
+
+	function markCanvasReady() {
+		isCanvasReady.value = true;
+	}
+
 	onMounted(function () {
 		historyStore.trackCanvasChanges();
+		window.addEventListener("beforeunload", warnBeforePageLeave);
+
+		// load fires after CSS and scripts finish, or already done on fast loads
+		if (document.readyState === "complete") {
+			markCanvasReady();
+		} else {
+			window.addEventListener("load", markCanvasReady, { once: true });
+		}
+	});
+
+	// removes the listeners when the user goes back to the chooser page
+	onBeforeUnmount(function () {
+		window.removeEventListener("beforeunload", warnBeforePageLeave);
+		window.removeEventListener("load", markCanvasReady);
 	});
 
 	watch(
@@ -131,6 +163,13 @@
 		}
 
 		canvasElemsStore.addElem(appActionStore.getSelectedElemType);
+	}
+	// asks the browser to confirm before closing, refreshing or leaving the site
+	function warnBeforePageLeave(event: BeforeUnloadEvent) {
+		// app-root is elems[0], so children means work was placed
+		if (canvasElemsStore.elems[0]!.children.length > 0) {
+			event.preventDefault();
+		}
 	}
 </script>
 <style scoped></style>

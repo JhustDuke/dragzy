@@ -1,6 +1,6 @@
 <template>
 	<div class="position-relative">
-		<CanvasElement
+		<RenderElements
 			v-for="elem in canvasElemsStore.elems"
 			:key="elem.id"
 			:id="elem.id"
@@ -25,7 +25,7 @@
 <script setup lang="ts">
 	import { onMounted, onUnmounted, ref } from "vue";
 	import { useCanvasElemsStore } from "../../store";
-	import CanvasElement from "./RenderElems.vue";
+	import RenderElements from "./RenderElems.vue";
 
 	import { isTyping } from "../../utils";
 
