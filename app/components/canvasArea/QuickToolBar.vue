@@ -326,6 +326,7 @@
 	#quick-toolbar {
 		font-size: 20px;
 		line-height: 1;
+		z-index: 100;
 	}
 	.ctrl {
 		cursor: pointer;

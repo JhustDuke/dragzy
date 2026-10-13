@@ -25,7 +25,7 @@
 <script setup lang="ts">
 	import { onMounted, onUnmounted, ref } from "vue";
 	import { useCanvasElemsStore } from "../../store";
-	import CanvasElement from "./NewElem.vue";
+	import CanvasElement from "./RenderElems.vue";
 
 	import { isTyping } from "../../utils";
 

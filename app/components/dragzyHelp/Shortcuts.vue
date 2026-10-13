@@ -20,7 +20,7 @@
 
 				<tr>
 					<td><kbd>P</kbd></td>
-					<td>Presets</td>
+					<td>Enter the Presets mode</td>
 				</tr>
 
 				<tr>
@@ -30,12 +30,12 @@
 
 				<tr>
 					<td><kbd>R</kbd></td>
-					<td>Resize</td>
+					<td>Enter Resize mode</td>
 				</tr>
 
 				<tr>
 					<td><kbd>I</kbd></td>
-					<td>Import</td>
+					<td>Activate Import mode</td>
 				</tr>
 
 				<tr>
@@ -45,7 +45,10 @@
 
 				<tr>
 					<td><kbd>U</kbd></td>
-					<td>Update the active element</td>
+					<td
+						>Open the Update modal (updates are applied on the active
+						element)</td
+					>
 				</tr>
 			</tbody>
 		</table>

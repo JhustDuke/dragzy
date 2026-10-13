@@ -34,7 +34,7 @@
 			:is="newElemInfo.elemType"
 			ref="elemRef"
 			dragzy-elem
-			:class="newElemInfo.cssClasses ?? []"
+			:class="renderedClasses"
 			v-bind="newElemInfo.props" />
 
 		<!-- update/edit modal - only rendered while THIS elem is both selected
@@ -75,9 +75,10 @@ needed, unlike the old global-modal + calculated-position approach. -->
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
+	import { ref, computed } from "vue";
 	import type { CanvasElem } from "~/types";
 	import { useCanvasElemsStore, useAppActionStore } from "~/store";
+	import { appendTWprefix } from "~/utils";
 	import ResizeButtons from "./ResizeButtons.vue";
 	import UpdateCssModal from "../updateModal/updateModal.vue";
 	import QuickToolBar from "./QuickToolBar.vue";
@@ -102,6 +103,20 @@ needed, unlike the old global-modal + calculated-position approach. -->
 		onDelete: (ev: MouseEvent) => void;
 	}>();
 
+	const appActionStore = useAppActionStore();
+
+	//classes drawn on the canvas e.g. tw page: "flex" is drawn as "tw-flex",
+	//the store keeps the plain class
+	const renderedClasses = computed(function () {
+		const storedClasses = props.newElemInfo.cssClasses ?? [];
+
+		if (appActionStore.framework === "tw") {
+			return appendTWprefix(storedClasses);
+		}
+
+		return storedClasses;
+	});
+
 	const elemRef = ref<HTMLElement | null>(null);
 	defineExpose({ elemRef });
 
@@ -118,7 +133,7 @@ needed, unlike the old global-modal + calculated-position approach. -->
 		font-size: 16px;
 		line-height: 18px;
 		transition: opacity 0.15s ease;
-		z-index: 3333;
+		z-index: 100;
 	}
 	.deleteBtn:hover {
 		background-color: white !important;

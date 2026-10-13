@@ -1,6 +1,10 @@
 import { computed } from "vue";
 import { normalizer } from "~/compiler/normalizer";
-import { useCanvasElemsStore, useImageLibraryStore } from "~/store";
+import {
+	useCanvasElemsStore,
+	useImageLibraryStore,
+	useAppActionStore,
+} from "~/store";
 
 //builds a full, standalone HTML document string from the current
 //canvas state - reuses the SAME normalizer/parseHtml pipeline the
@@ -11,6 +15,7 @@ import { useCanvasElemsStore, useImageLibraryStore } from "~/store";
 export function usePreviewHtml() {
 	const canvasElemsStore = useCanvasElemsStore();
 	const imageLibraryStore = useImageLibraryStore();
+	const appActionStore = useAppActionStore();
 
 	const previewHtml = computed(function () {
 		const rootElem = canvasElemsStore.elems[0]!;
@@ -44,17 +49,26 @@ export function usePreviewHtml() {
 
 		//Bootstrap's CDN link included so classes actually render - adjust
 		//the version/link if your project pins a specific Bootstrap build
+		let frameworkHeadTags = `<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+			rel="stylesheet" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/materializecss-colors-alone@0.1.0/colors.css"
+			rel="stylesheet" />`;
+
+		//tw page: the markup holds plain tailwind classes (no tw- prefix), so the
+		//play cdn goes in with no prefix config, and bootstrap stays out so its
+		//class names e.g. "container" and "border" can't style tailwind elems
+		if (appActionStore.framework === "tw") {
+			frameworkHeadTags = `<script src="https://cdn.tailwindcss.com"></script>`;
+		}
+
 		return `<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-			rel="stylesheet" />
-		<link
-			href="https://cdn.jsdelivr.net/npm/materializecss-colors-alone@0.1.0/colors.css"
-			rel="stylesheet" />
+		${frameworkHeadTags}
 
 		<link
 			rel="stylesheet"

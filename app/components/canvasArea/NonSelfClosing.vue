@@ -15,7 +15,7 @@
 			ref="elemRef"
 			dragzy-elem
 			:class="[
-				...(newElemInfo.cssClasses ?? []),
+				...renderedClasses,
 				{
 					'border border-2 my-2': isHoveredWhileDragging,
 					edited: isLastEdited,
@@ -75,7 +75,7 @@
 		dragzy-elem
 		class="position-relative"
 		:class="[
-			...(newElemInfo.cssClasses ?? []),
+			...renderedClasses,
 			{
 				'border border-2 my-2': isHoveredWhileDragging,
 				edited: isLastEdited,
@@ -139,17 +139,18 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
+	import { ref, computed } from "vue";
 	import type { CanvasElem } from "~/types";
 	import { useAppActionStore, useCanvasElemsStore } from "~/store";
+	import { appendTWprefix } from "~/utils";
 	import ResizeButtons from "./ResizeButtons.vue";
 	import UpdateCssModal from "../updateModal/updateModal.vue";
 	import QuickToolBar from "./QuickToolBar.vue";
-	import NewElem from "./NewElem.vue";
+	import NewElem from "./RenderElems.vue";
 
 	//no logic lives here on purpose - NewElem.vue owns all behavior
 	//(resize, selection, drag, delete). this component only renders.
-	defineProps<{
+	const props = defineProps<{
 		newElemInfo: CanvasElem;
 		isSelected: boolean;
 		activeWidth: number;
@@ -170,6 +171,18 @@
 	}>();
 
 	const appActionStore = useAppActionStore();
+
+	//classes drawn on the canvas e.g. tw page: "flex" is drawn as "tw-flex",
+	//the store keeps the plain class
+	const renderedClasses = computed(function () {
+		const storedClasses = props.newElemInfo.cssClasses ?? [];
+
+		if (appActionStore.framework === "tw") {
+			return appendTWprefix(storedClasses);
+		}
+
+		return storedClasses;
+	});
 
 	//NewElem.vue needs a ref to the REAL dom elem for drag/hover comparisons
 	const elemRef = ref<HTMLElement | null>(null);
@@ -194,7 +207,7 @@
 		padding: 0;
 		font-size: 16px;
 		line-height: 18px;
-		z-index: 3333;
+		z-index: 100;
 		transition: opacity 0.15s ease;
 	}
 	.deleteBtn:hover {
