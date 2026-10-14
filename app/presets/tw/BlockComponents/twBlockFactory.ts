@@ -1,22 +1,22 @@
 import { blockPresets as cardBlockPresets } from "./cardsPresets";
 import { navbarPresets } from "./navbarPresets";
-// import { footerPresets } from "./footerPresets";
-// import { formPresets } from "./formPresets";
+import { formPresets } from "./formPresets";
+import { heroPresets } from "./heroPresets";
+import { footerPresets } from "./footerPresets";
+import { ctaPresets } from "./ctaPresets";
+import { featuresPresets } from "./featuresPresets";
 // import { dashboardPresets } from "./dashboardPresets";
-// import { heroPresets } from "./heroPreset";
-// import { featuresPresets } from "./featuresPreset";
-// import { ctaPresets } from "./ctaPresets";
 import type { BlockPresetVariant, BlockPresets } from "~/presets/types";
 
 const blockPresets: BlockPresets = {
-	...cardBlockPresets,
 	...navbarPresets,
-	// ...footerPresets,
-	// ...formPresets,
+	...heroPresets,
+	...featuresPresets,
+	...cardBlockPresets,
+	...footerPresets,
+	...formPresets,
 	// ...dashboardPresets,
-	// ...heroPresets,
-	// ...featuresPresets,
-	// ...ctaPresets,
+	...ctaPresets,
 };
 
 export const blockPresetFactory = (function () {

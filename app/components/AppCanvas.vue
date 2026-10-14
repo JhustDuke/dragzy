@@ -12,7 +12,7 @@
 		<section class="flex-grow-1 mt-3">
 			<!-- Desktop: unchanged, still the real interactive canvas -->
 			<div
-				style="max-width: 1400px; margin: 0 auto"
+				style="max-width: 1400px; margin: 0 auto; position: relative"
 				v-if="viewportStore.activeViewport === 'desktop'"
 				class=""
 				dragzy-root
@@ -26,6 +26,29 @@
 						class="spinner-border text-success"
 						role="status"></div>
 					<p class="mt-3 mb-0">Loading your canvas, please wait...</p>
+				</div>
+
+				<!-- empty canvas hint, lives here and not in the store so it never exports -->
+				<div
+					v-if="
+						isCanvasReady && canvasElemsStore.elems[0]?.children.length === 0
+					"
+					class="position-absolute top-0 start-50 translate-middle-x mt-4 text-center grey-text text-darken-2"
+					style="pointer-events: none; z-index: 1; max-width: 420px">
+					<p class="fw-bold mb-1"
+						>this is your blank canvas, you can change it's default height and
+						width by pressing the + icon</p
+					>
+					<p class="mb-1">Add cards, navbars and other blocks inside it.</p>
+					<p class="mb-1"
+						>Double-click the canvas to add one, or press C for to create from
+						Scratch.</p
+					>
+					<p class="mb-1">Select an element and press U to edit it.</p>
+					<p class="mb-0"
+						>Stuck? Ask AI by pressing the android icon, e.g. "make the cards
+						sit side by side".</p
+					>
 				</div>
 
 				<CanvasArea />
@@ -44,7 +67,7 @@
 					class="green lighten-5 shadow border rounded-3"
 					:style="{ width: viewportStore.activeWidth, height: '600px' }"
 					:srcdoc="previewHtml"
-					sandbox="allow-same-origin"
+					sandbox="allow-scripts"
 					title="Responsive preview"></iframe>
 			</div>
 		</section>
@@ -74,7 +97,7 @@
 	import undoRedoToast from "~/components/canvasArea/undoRedoToast.vue";
 	import SmallScreenNotice from "~/components/canvasArea/SmallScreenNotice.vue";
 	import RestoreOrNewPrompt from "~/components/indexdb/RestorePrompt.vue";
-	import { usePreviewHtml } from "~/composables";
+	import { usePreviewHtml } from "~/iframe";
 	import AskAiModal from "~/components/ai/AskAiPanel.vue";
 	import AiMinimizedIcon from "~/components/ai/AiMinimizeIcon.vue";
 

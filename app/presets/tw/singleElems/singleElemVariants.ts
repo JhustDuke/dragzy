@@ -2,10 +2,10 @@ import { buildSingleElemPresets } from "../../utils";
 
 export const tailwindElemVariants = buildSingleElemPresets({
 	div: [
-		{ label: "Blank", classes: ["p-1", "my-2"] },
+		{ label: "Blank", classes: ["p-3", "my-2"] },
 		{
 			label: "Mobile-First",
-			classes: ["flex", "flex-col", "md:flex-row", "items-start"],
+			classes: ["p-3", "flex", "flex-col", "md:flex-row", "items-start"],
 		},
 		{ label: "Container", classes: ["container", "mx-auto", "p-3"] },
 		{ label: "Full Width", classes: ["w-full", "p-3"] },
@@ -24,9 +24,9 @@ export const tailwindElemVariants = buildSingleElemPresets({
 	],
 
 	span: [
-		{ label: "Muted", classes: ["text-gray-500"] },
-		{ label: "Primary", classes: ["text-blue-600"] },
-		{ label: "Success", classes: ["text-green-600"] },
+		{ label: "Muted", classes: ["p-3", "text-gray-500"] },
+		{ label: "Primary", classes: ["p-3", "text-blue-600"] },
+		{ label: "Success", classes: ["p-3", "text-green-600"] },
 		{
 			label: "Badge",
 			classes: [
@@ -43,10 +43,10 @@ export const tailwindElemVariants = buildSingleElemPresets({
 	],
 
 	p: [
-		{ label: "Lead", classes: ["text-xl", "font-light"] },
-		{ label: "Muted", classes: ["text-gray-500"] },
-		{ label: "Small", classes: ["text-sm"] },
-		{ label: "Centered", classes: ["text-center"] },
+		{ label: "Lead", classes: ["p-3", "text-xl", "font-light"] },
+		{ label: "Muted", classes: ["p-3", "text-gray-500"] },
+		{ label: "Small", classes: ["p-3", "text-sm"] },
+		{ label: "Centered", classes: ["p-3", "text-center"] },
 	],
 
 	a: [

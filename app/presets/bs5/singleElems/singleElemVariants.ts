@@ -2,10 +2,16 @@ import { buildSingleElemPresets } from "../../utils";
 
 export const bootstrapElemVariants = buildSingleElemPresets({
 	div: [
-		{ label: "Blank", classes: ["p-1", "my-2"] },
+		{ label: "Blank", classes: ["p-3", "my-2"] },
 		{
 			label: "Mobile First",
-			classes: ["d-flex", "flex-column", "flex-md-row", "align-items-start"],
+			classes: [
+				"p-3",
+				"d-flex",
+				"flex-column",
+				"flex-md-row",
+				"align-items-start",
+			],
 		},
 		{ label: "Container", classes: ["container", "mx-auto", "p-3"] },
 		{ label: "Full Width", classes: ["container-fluid", "p-3"] },
@@ -27,17 +33,17 @@ export const bootstrapElemVariants = buildSingleElemPresets({
 	],
 
 	span: [
-		{ label: "Muted", classes: ["text-muted"] },
-		{ label: "Primary", classes: ["text-primary"] },
-		{ label: "Success", classes: ["text-success"] },
-		{ label: "Badge", classes: ["badge", "text-bg-primary"] },
+		{ label: "Muted", classes: ["p-3", "text-muted"] },
+		{ label: "Primary", classes: ["p-3", "text-primary"] },
+		{ label: "Success", classes: ["p-3", "text-success"] },
+		{ label: "Badge", classes: ["p-3", "badge", "text-bg-primary"] },
 	],
 
 	p: [
-		{ label: "Lead", classes: ["lead"] },
-		{ label: "Muted", classes: ["text-muted"] },
-		{ label: "Small", classes: ["small"] },
-		{ label: "Centered", classes: ["text-center"] },
+		{ label: "Lead", classes: ["p-3", "lead"] },
+		{ label: "Muted", classes: ["p-3", "text-muted"] },
+		{ label: "Small", classes: ["p-3", "small"] },
+		{ label: "Centered", classes: ["p-3", "text-center"] },
 	],
 
 	a: [

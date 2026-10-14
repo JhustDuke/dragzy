@@ -13,12 +13,7 @@
 		<!-- toolbar for quick actions -->
 		<QuickToolBar
 			v-if="isSelected && newElemInfo.elemType === 'img'"
-			:controls-override="[
-				'img-fluid',
-				'img-thumbnail',
-				'rounded',
-				'rounded-circle',
-			]"
+			:controls-override="imageControlsOverride"
 			:css-classes="props.newElemInfo.cssClasses"
 			class="position-absolute start-50 translate-middle"
 			style="top: -20px; white-space: nowrap" />
@@ -104,6 +99,22 @@ needed, unlike the old global-modal + calculated-position approach. -->
 	}>();
 
 	const appActionStore = useAppActionStore();
+
+	const imageControlsOverride = computed(function () {
+		const controls =
+			appActionStore.framework === "tw"
+				? [
+						"max-w-full",
+						"h-auto",
+						"border",
+						"border-gray-200",
+						"rounded",
+						"rounded-full",
+				  ]
+				: ["img-fluid", "img-thumbnail", "rounded", "rounded-circle"];
+
+		return controls;
+	});
 
 	//classes drawn on the canvas e.g. tw page: "flex" is drawn as "tw-flex",
 	//the store keeps the plain class

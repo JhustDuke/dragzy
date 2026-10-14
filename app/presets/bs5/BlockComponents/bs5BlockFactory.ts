@@ -9,13 +9,13 @@ import { ctaPresets } from "./ctaPresets";
 import type { BlockPresetVariant, BlockPresets } from "~/presets/types";
 
 const blockPresets: BlockPresets = {
-	...cardBlockPresets,
 	...navbarPresets,
+	...heroPresets,
+	...featuresPresets,
+	...cardBlockPresets,
 	...footerPresets,
 	...formPresets,
 	...dashboardPresets,
-	...heroPresets,
-	...featuresPresets,
 	...ctaPresets,
 };
 
