@@ -26,7 +26,6 @@ Dragsy uses keyboard shortcuts to switch between tool modes on the canvas (simil
 
 - `C` — Create mode: click to place a new element, then choose the element type (e.g. box, text, image)
 - `R` — Resize mode: select an element and drag its handles to resize
-- `M` — Move mode: select and drag an element to reposition it
 - `U` — Update mode: select an element, then edit its inline styles, classes, or text content
 
 Many more controls are available — see the in-app **Help** section for the full list.
