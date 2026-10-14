@@ -5,11 +5,7 @@
 			'border border-2': isHoveredWhileDragging,
 			edited: isLastEdited,
 		}"
-		:id="wrapperId"
-		:style="props.newElemInfo.customStyles ?? {}"
-		@mousemove="onMouseMove"
-		@mousedown="onMouseDown"
-		@click="onClick">
+		:style="props.newElemInfo.customStyles ?? {}">
 		<!-- toolbar for quick actions -->
 		<QuickToolBar
 			v-if="isSelected && newElemInfo.elemType === 'img'"
@@ -25,12 +21,16 @@
 			style="top: -20px; white-space: nowrap" />
 
 		<component
+			:id="newElemInfo.id"
 			:style="props.newElemInfo.customStyles ?? {}"
 			:is="newElemInfo.elemType"
 			ref="elemRef"
 			dragzy-elem
 			:class="renderedClasses"
-			v-bind="newElemInfo.props" />
+			v-bind="newElemInfo.props"
+			@mousemove="onMouseMove"
+			@mousedown="onMouseDown"
+			@click="onClick" />
 
 		<!-- update/edit modal - only rendered while THIS elem is both selected
 AND the modal has been opened via U. lives inside this wrapper so it
@@ -130,8 +130,6 @@ needed, unlike the old global-modal + calculated-position approach. -->
 
 	const elemRef = ref<HTMLElement | null>(null);
 	defineExpose({ elemRef });
-
-	const wrapperId = ref("dragzy-img-" + Math.random().toString(36).slice(2, 9));
 
 	const isMouseOver = ref(false);
 </script>

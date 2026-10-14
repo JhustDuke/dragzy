@@ -36,8 +36,8 @@
 					class="position-absolute top-0 start-50 translate-middle-x mt-4 text-center grey-text text-darken-2"
 					style="pointer-events: none; z-index: 1; max-width: 420px">
 					<p class="fw-bold mb-1"
-						>this is your blank canvas, you can change it's default height and
-						width by pressing the + icon</p
+						>This is your blank canvas, you can change it's default height and
+						width etc. by pressing the + icon in the quicktoolbar.</p
 					>
 					<p class="mb-1">Add cards, navbars and other blocks inside it.</p>
 					<p class="mb-1"
@@ -45,10 +45,13 @@
 						Scratch.</p
 					>
 					<p class="mb-1">Select an element and press U to edit it.</p>
+
 					<p class="mb-0"
 						>Stuck? Ask AI by pressing the android icon, e.g. "make the cards
-						sit side by side".</p
-					>
+						sit side by side". be sure to select the parent/wrapper element for
+						prompts like the e.g to work
+					</p>
+					<p class="mb-0 fw-bolder">Press the help button for more.</p>
 				</div>
 
 				<CanvasArea />
@@ -86,6 +89,7 @@
 		<ToggleView />
 		<AiMinimizedIcon />
 		<SmallScreenNotice />
+		<contactWidget />
 	</div>
 </template>
 
@@ -97,6 +101,7 @@
 	import undoRedoToast from "~/components/canvasArea/undoRedoToast.vue";
 	import SmallScreenNotice from "~/components/canvasArea/SmallScreenNotice.vue";
 	import RestoreOrNewPrompt from "~/components/indexdb/RestorePrompt.vue";
+	import contactWidget from "~/components/canvasArea/contactWidget.vue";
 	import { usePreviewHtml } from "~/iframe";
 	import AskAiModal from "~/components/ai/AskAiPanel.vue";
 	import AiMinimizedIcon from "~/components/ai/AiMinimizeIcon.vue";

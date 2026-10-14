@@ -298,7 +298,7 @@
 		toolbar.style.removeProperty("left");
 
 		const toolbarRect = toolbar.getBoundingClientRect();
-		const edgeMargin = 15;
+		const edgeMargin = 0;
 
 		if (toolbarRect.left < edgeMargin) {
 			const overflowAmount = edgeMargin - toolbarRect.left;
