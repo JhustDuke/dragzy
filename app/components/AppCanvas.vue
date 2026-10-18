@@ -166,7 +166,7 @@
 	function handleCanvasDblClick(event: MouseEvent): void {
 		if (
 			appActionStore.getActiveAction !== "create" &&
-			appActionStore.getActiveAction !== "presets" &&
+			appActionStore.getActiveAction !== "templates" &&
 			appActionStore.getActiveAction !== "imports"
 		)
 			return;
@@ -176,7 +176,7 @@
 			canvasElemsStore.setActiveElem(null);
 		}
 
-		if (appActionStore.getActiveAction === "presets") {
+		if (appActionStore.getActiveAction === "templates") {
 			const stagedVariant = appActionStore.getActiveBlock.variant;
 			if (!stagedVariant) return;
 			canvasElemsStore.addElemFromPreset(stagedVariant);

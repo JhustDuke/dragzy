@@ -19,8 +19,8 @@
 				</tr>
 
 				<tr>
-					<td><kbd>P</kbd></td>
-					<td>Enter the Presets mode</td>
+					<td><kbd>T</kbd></td>
+					<td>Enter the template mode</td>
 				</tr>
 
 				<tr>

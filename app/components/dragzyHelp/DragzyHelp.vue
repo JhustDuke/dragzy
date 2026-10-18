@@ -109,7 +109,7 @@
 		label: string;
 	}> = [
 		{ id: "getting-started", label: "Getting Started" },
-		{ id: "elements", label: "Elements & Presets" },
+		{ id: "elements", label: "Elements & Templates" },
 		{ id: "editing", label: "Editing" },
 		{ id: "shortcuts", label: "Shortcuts" },
 		{ id: "import", label: "Import" },

@@ -3,8 +3,8 @@
 		<h6>Tips for Using Dragzy Efficiently</h6>
 
 		<ul>
-			<li>Choose the preset before double-clicking the canvas.</li>
-			<li>Use block presets when you need a complete structure.</li>
+			<li>Choose the template before double-clicking the canvas.</li>
+			<li>Use block template when you need a complete structure.</li>
 			<li>Use individual elements when you need precise control.</li>
 			<li>Check mobile and tablet views regularly.</li>
 			<li>Use Undo instead of manually repairing every experiment.</li>

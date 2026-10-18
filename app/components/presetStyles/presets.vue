@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<SingleElemPresets v-if="appActionStore.getActiveAction === 'create'" />
-		<BlockElemPresets v-if="appActionStore.getActiveAction === 'presets'" />
+		<BlockElemPresets v-if="appActionStore.getActiveAction === 'templates'" />
 		<imports v-if="appActionStore.getActiveAction === 'imports'" />
 	</div>
 </template>

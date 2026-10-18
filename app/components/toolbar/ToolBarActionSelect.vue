@@ -37,7 +37,7 @@
 	const Optionlabels: AppAction[] = [
 		"create",
 		"resize",
-		"presets",
+		"templates",
 		"imports",
 		"single-export",
 	];
@@ -63,8 +63,8 @@
 			return;
 		}
 
-		if (event.key === "p") {
-			selectedAction.value = "presets";
+		if (event.key === "t") {
+			selectedAction.value = "templates";
 			return;
 		}
 

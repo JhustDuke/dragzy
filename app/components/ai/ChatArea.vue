@@ -122,11 +122,11 @@
 
 	const MAX_COLLAPSED_CHARACTERS = 50;
 
-	type FallbackAction = "create" | "presets" | "imports";
+	type FallbackAction = "create" | "templates" | "imports";
 
 	const fallbackOptions: { label: string; action: FallbackAction }[] = [
 		{ label: "Create", action: "create" },
-		{ label: "Preset", action: "presets" },
+		{ label: "Preset", action: "templates" },
 		{ label: "Import", action: "imports" },
 	];
 

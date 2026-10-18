@@ -19,7 +19,7 @@ export const hints = {
 	duplicateHint: "click to duplicate the active elem shortcut-press 'd' ",
 	createHint: 'click to enter create mode, shortcut-press "c"',
 	importHint: 'click to imports, shortcut-press "i"',
-	presetHint: 'click to enter presets mode,shortcut-press "p" ',
+	templateHint: 'click to enter template mode,shortcut-press "p" ',
 	resizeHint: 'click to enter resize mode,shortcut-press "r" ',
 	aiHint: "click to ask for to ask ai ",
 	exportHint: "this runs an export on the ACTIVE/SELECTED BLOCK/Elem",

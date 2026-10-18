@@ -16,7 +16,7 @@
 
 		<p>
 			AI currently works with Bootstrap 5 and Tailwind css. If a request fails,
-			you can always build with presets, the create option or import instead.
+			you can always build with templates, the create option or import instead.
 		</p>
 	</div>
 </template>

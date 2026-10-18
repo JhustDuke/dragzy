@@ -4,7 +4,7 @@ import type { Properties } from "csstype";
 
 export type AppAction =
 	| "create"
-	| "presets"
+	| "templates"
 	| "resize"
 	| "imports"
 	| "single-export";

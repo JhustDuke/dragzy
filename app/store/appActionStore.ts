@@ -8,7 +8,7 @@ export const useAppActionStore = defineStore("appAction", {
 		const blockData = blockPresetFactory.blockElemsData();
 
 		return {
-			currentAction: "presets" as AppAction,
+			currentAction: "templates" as AppAction,
 			selectedElemType: "div" as keyof HTMLElementTagNameMap,
 
 			//which css framework this page builds with e.g. "bs5" or "tw"

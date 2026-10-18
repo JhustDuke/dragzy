@@ -40,7 +40,7 @@
 
 				<tr>
 					<td><kbd>P</kbd></td>
-					<td>Presets</td>
+					<td>Templates</td>
 				</tr>
 
 				<tr>
