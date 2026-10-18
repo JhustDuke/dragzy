@@ -149,12 +149,12 @@
 
 	// c = create, t = templates, e = export, r = resize, i = imports.
 	// d = duplicate, kept last since it's a utility not a switchable action
-	const appActionsControls = ["c", "p", "e", "r", "i", "d"] as const;
+	const appActionsControls = ["c", "t", "e", "r", "i", "d"] as const;
 	type appActionInitials = (typeof appActionsControls)[number];
 
 	const actionHints: Record<appActionInitials, string> = {
 		c: hints.createHint,
-		p: hints.templateHint,
+		t: hints.templateHint,
 		e: hints.exportHint, // TODO: add exportHint to hints
 		r: hints.resizeHint,
 		i: hints.importHint,
@@ -172,7 +172,7 @@
 			case "c":
 				return currentAppAction.value === "create";
 
-			case "p":
+			case "t":
 				return currentAppAction.value === "templates";
 
 			case "e":
@@ -199,7 +199,7 @@
 				appActionStore.setActiveAction("create");
 				break;
 
-			case "p":
+			case "t":
 				appActionStore.setActiveAction("templates");
 				break;
 
